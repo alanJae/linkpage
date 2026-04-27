@@ -19,6 +19,9 @@
           <button id="nav-submissions" class="nav-btn inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" onclick="switchTab('submissions')">
             发帖记录
           </button>
+          <button id="nav-keywords" class="nav-btn inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" onclick="switchTab('keywords')">
+            网站关键词
+          </button>
         </div>
       </div>
     </div>
@@ -90,6 +93,7 @@
           <select id="filter-submission-site" class="px-3 py-2 border rounded-lg text-sm" onchange="loadSubmissions()">
             <option value="">全部网站</option>
           </select>
+          <input type="text" id="filter-my-site" placeholder="我的网站" class="px-3 py-2 border rounded-lg text-sm" oninput="debounceLoadSubmissions()">
         </div>
         <button onclick="openSubmissionModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm">
           + 新增记录
@@ -110,6 +114,64 @@
             </tr>
           </thead>
           <tbody id="submissions-tbody" class="bg-white divide-y divide-gray-200">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 网站关键词 Tab -->
+    <div id="tab-keywords" class="tab-content hidden">
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex space-x-2">
+          <input
+            type="text"
+            id="filter-keyword-domain"
+            placeholder="筛选域名，例如 belindoc.com"
+            class="px-3 py-2 border rounded-lg text-sm"
+            oninput="debounceLoadKeywordData()"
+          >
+          <input
+            type="text"
+            id="filter-keyword-record"
+            placeholder="筛选关键词或页面 URL"
+            class="px-3 py-2 border rounded-lg text-sm"
+            oninput="renderKeywordRecords()"
+          >
+        </div>
+        <button onclick="loadKeywordData()" class="px-4 py-2 border rounded-lg hover:bg-gray-50 text-sm">
+          刷新
+        </button>
+      </div>
+
+      <div class="bg-white shadow rounded-lg overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">网站</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">关键词</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <button type="button" class="flex items-center gap-1 hover:text-gray-700" onclick="toggleKeywordSort('rank_position')">
+                  排名
+                  <span id="sort-rank_position-indicator" class="text-[10px] text-gray-400">-</span>
+                </button>
+              </th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <button type="button" class="flex items-center gap-1 hover:text-gray-700" onclick="toggleKeywordSort('clicks')">
+                  点击
+                  <span id="sort-clicks-indicator" class="text-[10px] text-gray-400">-</span>
+                </button>
+              </th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <button type="button" class="flex items-center gap-1 hover:text-gray-700" onclick="toggleKeywordSort('kw_volume')">
+                  搜索量
+                  <span id="sort-kw_volume-indicator" class="text-[10px] text-gray-400">-</span>
+                </button>
+              </th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">意图</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Top URL</th>
+            </tr>
+          </thead>
+          <tbody id="keyword-records-tbody" class="bg-white divide-y divide-gray-200">
           </tbody>
         </table>
       </div>

@@ -30,3 +30,7 @@
 .status-select {
   @apply px-2 py-1 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500;
 }
+
+.keyword-url {
+  @apply inline-block max-w-md truncate align-bottom;
+}
